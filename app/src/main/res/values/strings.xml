@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">CatalogUser_v-2</string>
+    <string name="app_name">Каталог пользователей</string>
+    <string name="exit">Выход из приложения</string>
+    <string name="save">Сохранить</string>
+    <string name="inputName">Введите имя</string>
+    <string name="inputAge">Введите возраст</string>
 </resources>
