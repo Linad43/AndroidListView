@@ -4,4 +4,6 @@
     <string name="save">Сохранить</string>
     <string name="inputName">Введите имя</string>
     <string name="inputAge">Введите возраст</string>
+    <string name="name">Имя</string>
+    <string name="age">Возраст</string>
 </resources>

@@ -26,31 +26,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_main"
         tools:ignore="MissingConstraints">
-
-        <EditText
-            android:id="@+id/nameET"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:hint="@string/inputName"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="20sp"
+                android:layout_margin="10dp"/>
 
-        <EditText
-            android:id="@+id/ageET"
+            <EditText
+                android:id="@+id/nameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="@string/inputName"
+                android:textColorHint="@color/gray"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:hint="@string/inputAge"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/age"
+                android:textSize="20sp"
+                android:layout_margin="10dp"/>
+
+            <EditText
+                android:id="@+id/ageET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="@string/inputAge"
+                android:textColorHint="@color/gray"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/saveBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:onClick="saveOnClick"
             android:text="@string/save" />
     </LinearLayout>
 
@@ -66,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@id/upLayout">
 
         <ListView
-            android:id="@+id/list"
+            android:id="@+id/listLV"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
