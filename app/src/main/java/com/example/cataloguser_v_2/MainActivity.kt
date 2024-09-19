@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -19,7 +20,8 @@ import androidx.core.view.WindowInsetsCompat
 class MainActivity : AppCompatActivity() {
 
     private var names = mutableListOf<String>()
-    private var ages = mutableListOf<Int>()
+//    private var ages = mutableListOf<Int>()
+    private var users = mutableListOf<User>()
 
     private lateinit var toolbar: Toolbar
     private lateinit var name: EditText
@@ -46,17 +48,23 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
+        //Как тут добавить Sublist, что бы возраст был под именем?
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, names)
         listLV.adapter = adapter
 
         save.setOnClickListener {
             if (!checked()) {
+                users.add(User(name.text.toString(), age.text.toString().toInt()))
                 names.add(name.text.toString())
-                ages.add(age.text.toString().toInt())
+//                ages.add(age.text.toString().toInt())
                 adapter.notifyDataSetChanged()
                 default()
             }
         }
+        listLV.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, v, position, id ->
+                adapter.remove(adapter.getItem(position))
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
