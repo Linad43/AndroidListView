@@ -19,9 +19,11 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
-    private var names = mutableListOf<String>()
-//    private var ages = mutableListOf<Int>()
+//    private var names = mutableListOf<String>()
+
+    //    private var ages = mutableListOf<Int>()
     private var users = mutableListOf<User>()
+    private var adapter: ArrayAdapter<User>? = null
 
     private lateinit var toolbar: Toolbar
     private lateinit var name: EditText
@@ -48,23 +50,15 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        //Как тут добавить Sublist, что бы возраст был под именем?
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, names)
+        /**
+        Как тут добавить Sublist, что бы возраст был под именем?
+         */
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
         listLV.adapter = adapter
 
-        save.setOnClickListener {
-            if (!checked()) {
-                users.add(User(name.text.toString(), age.text.toString().toInt()))
-                names.add(name.text.toString())
-//                ages.add(age.text.toString().toInt())
-                adapter.notifyDataSetChanged()
-                default()
-            }
+        listLV.onItemClickListener = AdapterView.OnItemClickListener { parent, v, position, id ->
+            adapter!!.remove(adapter!!.getItem(position))
         }
-        listLV.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, v, position, id ->
-                adapter.remove(adapter.getItem(position))
-            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -81,13 +75,16 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    //    fun saveOnClick(view: View) {
-//        if (!checked()){
-//            names.add(name.text.toString())
-//            ages.add(age.text.toString().toInt())
-//            listLV.adapter.
-//        }
-//    }
+    fun saveOnClick(view: View) {
+        if (!checked()) {
+            users.add(User(name.text.toString(), age.text.toString().toInt()))
+//                names.add(name.text.toString())
+//                ages.add(age.text.toString().toInt())
+            adapter!!.notifyDataSetChanged()
+            default()
+        }
+    }
+
     private fun checked(): Boolean {
         if (name.text.isEmpty()) {
             name.setHintTextColor(ContextCompat.getColor(this, R.color.red))
@@ -102,12 +99,19 @@ class MainActivity : AppCompatActivity() {
         }
         return false
     }
-    private fun default(){
-        name.text.clear()
-        age.text.clear()
-        name.setHintTextColor(ContextCompat.getColor(this, R.color.gray))
-        name.hint = getText(R.string.inputName)
-        age.setHintTextColor(ContextCompat.getColor(this, R.color.gray))
-        age.hint = getText(R.string.inputAge)
+
+    private fun default() {
+        defaultEditText(name, R.string.inputName)
+        defaultEditText(age, R.string.inputAge)
+    }
+
+    private fun defaultEditText(editText: EditText, colorID: Int, textID: Int) {
+        editText.text.clear()
+        editText.setHintTextColor(ContextCompat.getColor(this, colorID))
+        editText.hint = ContextCompat.getString(this, textID)
+    }
+
+    private fun defaultEditText(editText: EditText, textID: Int) {
+        defaultEditText(editText, R.color.gray, textID)
     }
 }
