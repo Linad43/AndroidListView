@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -56,10 +55,13 @@ class MainActivity : AppCompatActivity() {
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
         listLV.adapter = adapter
 
-        listLV.onItemClickListener = AdapterView.OnItemClickListener { parent, v, position, id ->
-            adapter!!.remove(adapter!!.getItem(position))
-        }
+        listLV.onItemClickListener =
+            Dialog.createDialogDelete(this, adapter!!)
     }
+
+//    private fun removeElement(position: Int) {
+//        adapter!!.remove(adapter!!.getItem(position))
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
