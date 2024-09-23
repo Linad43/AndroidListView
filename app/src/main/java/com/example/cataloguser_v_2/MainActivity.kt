@@ -15,13 +15,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
 
 //    private var names = mutableListOf<String>()
 
     //    private var ages = mutableListOf<Int>()
-    private var users = mutableListOf<User>()
+    private lateinit var users:CatalogUsers
+
     private var adapter: ArrayAdapter<User>? = null
 
     private lateinit var toolbar: Toolbar
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        users= ViewModelProvider(this)[CatalogUsers::class.java]
         toolbar = findViewById(R.id.toolbar_main)
         name = findViewById(R.id.nameET)
         age = findViewById(R.id.ageET)
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         /**
         Как тут добавить Sublist, что бы возраст был под именем?
          */
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users.listUser)
         listLV.adapter = adapter
 
         listLV.onItemClickListener =
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     fun saveOnClick(view: View) {
         if (!checked()) {
-            users.add(User(name.text.toString(), age.text.toString().toInt()))
+            users.addUser(User(name.text.toString(), age.text.toString().toInt()))
 //                names.add(name.text.toString())
 //                ages.add(age.text.toString().toInt())
             adapter!!.notifyDataSetChanged()
