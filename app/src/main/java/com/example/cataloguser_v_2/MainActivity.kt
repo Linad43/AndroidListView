@@ -22,9 +22,8 @@ class MainActivity : AppCompatActivity() {
 //    private var names = mutableListOf<String>()
 
     //    private var ages = mutableListOf<Int>()
-    private lateinit var users:CatalogUsers
-
-    private var adapter: ArrayAdapter<User>? = null
+    private lateinit var users: CatalogUsers
+    private var adapter: UserAdapter? = null
 
     private lateinit var toolbar: Toolbar
     private lateinit var name: EditText
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        users= ViewModelProvider(this)[CatalogUsers::class.java]
+        users = ViewModelProvider(this)[CatalogUsers::class.java]
         toolbar = findViewById(R.id.toolbar_main)
         name = findViewById(R.id.nameET)
         age = findViewById(R.id.ageET)
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         /**
         Как тут добавить Sublist, что бы возраст был под именем?
          */
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users.listUser)
+        adapter = UserAdapter(this, users.listUser)
         listLV.adapter = adapter
 
         listLV.onItemClickListener =

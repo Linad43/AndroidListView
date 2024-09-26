@@ -7,7 +7,7 @@ import androidx.appcompat.app.AlertDialog
 
 class Dialog {
     companion object {
-        fun createDialogDelete(context: Context, adapter: ArrayAdapter<User>) =
+        fun createDialogDelete(context: Context, adapter: UserAdapter) =
             AdapterView.OnItemClickListener { parent, v, position, id ->
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Внимание")
